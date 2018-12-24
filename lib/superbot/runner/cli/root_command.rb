@@ -42,9 +42,9 @@ module Superbot
                .map! { |f| [f.gsub(path, ''), f] }
                .sort
                .map(&:last)
-           else
-             [path]
-           end
+          else
+            [path]
+          end
         end
 
         def run_test_file(test_file)
