@@ -14,6 +14,7 @@ module Superbot
         end
         option ['--region'], 'REGION', 'Region for remote webdriver'
         option ['--no-teleport'], :flag, 'Do not start teleport before running'
+        option ['--org'], 'ORGANIZATION', 'Name of organization to take action', attribute_name: :organization
 
         def execute
           open_teleport unless no_teleport?
@@ -26,7 +27,7 @@ module Superbot
 
         def open_teleport
           @teleport = Thread.new do
-            Superbot::Web.run!(webdriver_type: browser, region: region)
+            Superbot::Web.run!(webdriver_type: browser, region: region, organization: organization)
           end
 
           if browser == 'local'
