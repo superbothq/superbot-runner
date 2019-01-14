@@ -7,34 +7,38 @@ module Superbot
 
         parameter "PATH", "path to test suite"
 
-        option ['--browser'], 'BROWSER', "Browser type to use. Can be either local or cloud", default: 'local' do |browser|
-          validates_browser_type browser
-          require_login unless browser == 'cloud'
-          browser
-        end
+        option ['--browser'], 'BROWSER', "Browser type to use. Can be either local or cloud", default: 'local'
         option ['--region'], 'REGION', 'Region for remote webdriver'
         option ['--no-teleport'], :flag, 'Do not start teleport before running'
         option ['--org'], 'ORGANIZATION', 'Name of organization to take action', attribute_name: :organization
 
         def execute
-          open_teleport unless no_teleport?
+          open_teleport
           sorted_files.each(&method(:run_test_file))
         ensure
-          close_teleport unless no_teleport?
+          close_teleport
         end
 
         private
 
         def open_teleport
+          return if no_teleport?
+
           @teleport = Thread.new do
-            Superbot::Web.run!(webdriver_type: browser, region: region, organization: organization)
+            Superbot::Teleport::CLI::RootCommand.new('teleport').run(teleport_options)
+          rescue StandardError => e
+            abort "Teleport error: #{e.message}"
           end
 
-          if browser == 'local'
-            chromedriver_path = Chromedriver::Helper.new.binary_path
-            @chromedriver = Kommando.new "#{chromedriver_path} --silent --port=9515 --url-base=wd/hub"
-            @chromedriver.run_async
-          end
+          sleep 0.1 until @teleport.stop?
+        end
+
+        def teleport_options
+          {
+            '--browser' => browser,
+            '--region' => region,
+            '--org' => organization
+          }.compact.to_a.flatten
         end
 
         def sorted_files
@@ -58,8 +62,6 @@ module Superbot
         end
 
         def close_teleport
-          sleep 1
-          @chromedriver&.kill
           @teleport&.kill
         end
       end

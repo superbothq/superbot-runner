@@ -1,7 +1,12 @@
 PATH
+  remote: ../superbot-runner-side
+  specs:
+    superbot-runner-side (0.1.0)
+
+PATH
   remote: .
   specs:
-    superbot-runner (0.1.2)
+    superbot-runner (0.1.3)
       superbot-runner-side
 
 GEM
@@ -19,22 +24,22 @@ GEM
     clamp (1.2.1)
     diff-lcs (1.3)
     excon (0.62.0)
-    ffi (1.9.25)
+    ffi (1.10.0)
     io-like (0.3.0)
     kommando (0.1.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
-    mimemagic (0.3.2)
+    mimemagic (0.3.3)
     mini_portile2 (2.4.0)
     multipart-post (2.0.0)
     mustermann (1.0.3)
-    nokogiri (1.9.1)
+    nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
     public_suffix (3.0.3)
     rack (2.0.6)
-    rack-protection (2.0.4)
+    rack-protection (2.0.5)
       rack
     rake (10.5.0)
     rspec (3.8.0)
@@ -54,31 +59,34 @@ GEM
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
-    sinatra (2.0.4)
+    sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.4)
+      rack-protection (= 2.0.5)
       tilt (~> 2.0)
     sinatra-silent (0.0.1)
-    superbot (0.2.0)
+    superbot (0.3.1)
       clamp (= 1.2.1)
-      kommando (~> 0.1)
+      kommando (= 0.1.2)
       launchy (= 2.4.3)
-      sinatra (= 2.0.4)
+      sinatra (= 2.0.5)
       sinatra-silent (= 0.0.1)
-      superbot-cloud (~> 0.1.22)
-      superbot-runner
-      superbot-selenium-webdriver (~> 1.0.5)
-      superbot-teleport (~> 0.2.3)
+      superbot-cloud (= 0.2.2)
+      superbot-record (= 0.1.0)
+      superbot-runner (= 0.1.2)
+      superbot-selenium-webdriver (= 1.0.5)
+      superbot-teleport (= 0.2.6)
       zaru (= 0.2.0)
-    superbot-cloud (0.1.22)
+    superbot-cloud (0.2.2)
       marcel (= 0.3.3)
       multipart-post (= 2.0.0)
-    superbot-runner-side (0.1.0)
+    superbot-record (0.1.0)
+      superbot-record-chrome
+    superbot-record-chrome (0.1.0)
     superbot-selenium-webdriver (1.0.5)
       chromedriver-helper (= 2.1.0)
       selenium-webdriver (= 3.141.0)
-    superbot-teleport (0.2.3)
+    superbot-teleport (0.2.6)
       excon
     tilt (2.0.9)
     zaru (0.2.0)
@@ -90,8 +98,9 @@ DEPENDENCIES
   bundler (~> 1.17)
   rake (~> 10.0)
   rspec (~> 3.0)
-  superbot (~> 0.2.0)
+  superbot (~> 0.3.1)
   superbot-runner!
+  superbot-runner-side!
 
 BUNDLED WITH
    1.17.1
